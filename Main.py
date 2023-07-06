@@ -5,7 +5,8 @@ import os
 from datetime import datetime
 import face_recognition
 
-
+alg = "haarcascade_frontalface_default.xml"
+haar_cascade = cv2.CascadeClassifier(alg)
 fp=r'photos'
 lf = os.listdir(fp)
 
@@ -42,6 +43,12 @@ inwriter = csv.writer(f)
 
 while True:
     _,frame = video_capture.read()
+     grayImg = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    face = haar_cascade.detectMultiScale(grayImg, 1.3, 4)
+    for (x, y, w, h) in face:
+        text = "Face Detected"
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
     small_frame = cv2.resize(frame,(0,0),fx=0.25, fy=0.25)
     #rgb_small_frame = small_frame[:,:,::-1]
     rgb_small_frame = np.ascontiguousarray(small_frame[:, :, ::-1])
