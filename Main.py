@@ -66,6 +66,7 @@ while True:
             
             face_names.append(name)
             if name in known_face_names:
+                cv2.putText(frame, name,(x, y - 10), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 200))
                 if name in students:
                     students.remove(name)
                     print(students)
